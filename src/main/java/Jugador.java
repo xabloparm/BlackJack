@@ -30,6 +30,10 @@ public class Jugador {
         return (puntos>21)?-1:puntos;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     @Override
     public String toString(){
         return nombre+" "+ Arrays.toString(mano);

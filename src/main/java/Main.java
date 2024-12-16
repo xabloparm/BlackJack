@@ -3,15 +3,9 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("MOSTRAR LA BARAJA");
         Baraja baraja = new Baraja();
-        System.out.println(baraja);
-        System.out.println();
-
-        System.out.println("Mostrar jugador");
-        Jugador jugador = new Jugador("Xabi", LocalDate.of(2005,03,04));
-        System.out.println(jugador);
-        System.out.println();
+        Jugador banca;
+        Juego juego;
 
         int numjugadores = 0;
         while (numjugadores<1 || numjugadores>6){
@@ -28,5 +22,13 @@ public class Main {
             jugadores[i] = new Jugador(nombre, LocalDate.of(year++,month++,day++));
         }
 
+        juego.start(jugadores, baraja, banca);
+
     }
+
+
+
+
+
+
 }

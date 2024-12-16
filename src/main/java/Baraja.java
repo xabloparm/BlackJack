@@ -30,7 +30,7 @@ public class Baraja {
         Collections.shuffle(ListaCartas);
         ListaCartas.toArray(baraja);
     }
-    public Carta repartirencima(){
+    public Carta repartirEncima(){
         Carta carta = null;
         if (baraja.length>0) {
             carta = baraja[0];
