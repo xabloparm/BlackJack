@@ -1,17 +1,10 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class Juego {
-
-    // ATRIBUTOS
-
+    //atributos
     private Baraja baraja;
     private Jugador[] jugadores;
     private Jugador banca;
-
-    //CONSTRUCTOR
 
     public Juego(Jugador[] jugadores){
         this.jugadores = jugadores;
@@ -19,66 +12,72 @@ public class Juego {
         banca = new Jugador("Banca", LocalDate.now());
     }
 
-    public void start(Jugador[] jugadores, Baraja baraja, Jugador banca){
-
-        repartoInicial(jugadores, baraja,banca);
-        repartoInicial(jugadores, baraja,banca);
-
-        for (Jugador jugador: jugadores){
-            juegaJugador(jugador,baraja);
+    public void start(){
+        //reparto inicial
+        for(Jugador jugador:jugadores){
+            repartoInicial(jugador);
         }
+        repartoInicial(banca);
 
+        //jugar todos los jugadores
+        for(Jugador jugador:jugadores){
+            juegaJugador(jugador);
+        }
+        juegaBanca(banca);
 
+        //mostrarGanador();
     }
 
-    private void repartoInicial(Jugador[] jugadores, Baraja baraja, Jugador banca){
-        System.out.println("Reparto inicial: ");
-
-        banca.anyadirCarta(baraja.repartirEncima());
-
-        for (Jugador jugador: jugadores){
-            jugador.anyadirCarta(baraja.repartirEncima());
-        }
+    private void repartoInicial(Jugador player){
+        player.anyadirCarta(baraja.repartirEncima());
+        player.anyadirCarta(baraja.repartirEncima());
     }
 
-    public void juegaJugador(Jugador jugador, Baraja baraja){
-        System.out.println("Turno de: "+ jugador.getNombre());
-        System.out.println(jugador);
-        char option0 =
-                Input.getString("Otra carta? (Y para si, cualquier otro carácter para no: )")
+    private void juegaJugador(Jugador player){
+        //repartir cartas mientras diga Y o puntuación ==-1
+        System.out.println("Turno para " + player.getNombre());
+        System.out.println(player);
+        char option =
+                Input.getString("Otra carta? (Y para sí, cualquier otro valor para no: ")
                         .toUpperCase().charAt(0);
 
-        while (option0== 'Y' && jugador.getPuntuación()>=0){
-            jugador.anyadirCarta(baraja.repartirEncima());
-            System.out.println(jugador);
-            if (jugador.getPuntuación()>=0) {
-                char option1 =
-                        Input.getString("Otra carta? (Y para si, cualquier otro carácter para no: )")
+        while(option=='Y' && player.getPuntuación()>=0){
+            player.anyadirCarta(baraja.repartirEncima());
+            System.out.println(player);
+            if(player.getPuntuación()>=0)
+                option =
+                        Input.getString("Otra carta? (Y para sí, cualquier otro valor para no: ")
                                 .toUpperCase().charAt(0);
-            }else {
-                System.out.println(jugador.getNombre()+" te has pasado!!!");
-            }
+            else
+                System.out.println(player.getNombre() + " te has pasado !!");
         }
     }
 
-    public void juegaBanca(Jugador banca, Baraja baraja){
-        int maxPuntuación = maxPuntuaciónJugadores();
-
-        System.out.println("Turno de la banca: ");
-
-        while (banca.getPuntuación()>maxPuntuación){
-            banca.anyadirCarta(baraja.repartirEncima());
-            System.out.println(banca);
-            if (banca.getPuntuación()<0){
-                System.out.println("La banca se ha pasado.");
-            }
+    private void juegaBanca(Jugador playerBanca){
+        int maxPuntuacion=maxPuntuacionJugadores();
+        System.out.println("Turno para " + playerBanca.getNombre());
+        System.out.println(playerBanca);
+        while(playerBanca.getPuntuación()<maxPuntuacion && playerBanca.getPuntuación()>=0){
+            esperar(2000);
+            playerBanca.anyadirCarta(baraja.repartirEncima());
+            System.out.println(playerBanca);
+            if(playerBanca.getPuntuación()<0)
+                System.out.println("La banca se ha pasado !!");
         }
     }
 
-    private int maxPuntuaciónJugadores(){
-        int mayor = Integer. MIN_VALUE;
-        for (Jugador jugador: jugadores){
-            if (jugador.getPuntuación()>mayor){
+    private void esperar(long millis){
+        try{
+            Thread.sleep(millis);
+        } catch (Exception e){
+
+        }
+    }
+
+    private int maxPuntuacionJugadores(){
+        int mayor = Integer.MIN_VALUE;
+        for(Jugador jugador:jugadores){
+            if(jugador.getPuntuación()>mayor){
                 mayor = jugador.getPuntuación();
             }
         }
