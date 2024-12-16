@@ -69,7 +69,9 @@ public class Juego {
         while (banca.getPuntuación()>maxPuntuación){
             banca.anyadirCarta(baraja.repartirEncima());
             System.out.println(banca);
-
+            if (banca.getPuntuación()<0){
+                System.out.println("La banca se ha pasado.");
+            }
         }
     }
 
@@ -80,6 +82,7 @@ public class Juego {
                 mayor = jugador.getPuntuación();
             }
         }
+        return mayor;
     }
 
 }
