@@ -1,3 +1,5 @@
+import static com.diogonunes.jcolor.Ansi.colorize;
+
 public enum Numero {
     AS("A", 1),
     DOS("2", 2),
@@ -14,21 +16,26 @@ public enum Numero {
     REY("K", 10);
 
     // Atributos
-    private final String simbolo;
+    private final String num;
     private final int valor;
 
     // Constructor
     Numero(String simbolo, int valor) {
-        this.simbolo = simbolo;
+        this.num = simbolo;
         this.valor = valor;
     }
 
     // Métodos
-    public String getSimbolo() {
-        return simbolo;
+    public String getNum() {
+        return num;
     }
 
     public int getValor() {
         return valor;
+    }
+
+    @Override
+    public String toString(){
+        return num;
     }
 }
