@@ -22,5 +22,17 @@ public class Jugador {
         mano[mano.length-1] = carta;
     }
 
+    public int getPuntuación(){
+        int puntos = 0;
+        for (int i = 0; i < mano.length; i++) {
+            puntos += mano[i].getNumero().getValor();
+        }
+        return (puntos>21)?-1:puntos;
+    }
+
+    @Override
+    public String toString(){
+        return nombre+" "+ Arrays.toString(mano);
+    }
 
 }
