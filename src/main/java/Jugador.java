@@ -23,12 +23,29 @@ public class Jugador {
     }
 
     public int getPuntuación(){
-        int puntos = 0;
-        for (int i = 0; i < mano.length; i++) {
-            puntos += mano[i].getNumero().getValor();
-        }
-        return (puntos>21)?-1:puntos;
+//        int puntos = 0;
+//        for (int i = 0; i < mano.length; i++) {
+//            puntos += mano[i].getNumero().getValor();
+//        }
+        return obtenerPuntuacionRecursiva(0,0);
     }
+
+    public int obtenerPuntuacionRecursiva(int index, int suma){
+        if (suma>21){
+            return -1;
+        }
+        if (index>= mano.length){
+            return suma;
+        }
+        if (mano[index].getNumero().getValor().length == 1)
+            return obtenerPuntuacionRecursiva(index++,suma+mano[index].getNumero().getValor()[0]);
+
+        return Math.max(
+        obtenerPuntuacionRecursiva(index+1,suma+mano[index].getNumero().getValor()[0]),
+        obtenerPuntuacionRecursiva(index+1,suma+mano[index].getNumero().getValor()[1])
+        );
+    }
+
 
     public String getNombre() {
         return nombre;

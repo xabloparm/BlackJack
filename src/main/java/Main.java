@@ -19,5 +19,6 @@ public class Main {
         }
         Juego juego = new Juego(jugadores);
         juego.start();
+        juego.mostrarGanador(jugadores);
     }
 }

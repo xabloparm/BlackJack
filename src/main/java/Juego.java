@@ -1,7 +1,9 @@
 import java.time.LocalDate;
 
 public class Juego {
-    //atributos
+
+    //ATRIBUTOS
+
     private Baraja baraja;
     private Jugador[] jugadores;
     private Jugador banca;
@@ -82,6 +84,22 @@ public class Juego {
             }
         }
         return mayor;
+    }
+
+    public void mostrarGanador(Jugador[] jugadores){
+        int maximaPuntuacion = maxPuntuacionJugadores();
+        if (banca.getPuntuación() == maximaPuntuacion){
+            System.out.println("La banca ha ganado.");
+        } else {
+            for (Jugador jugador:jugadores){
+                if (jugador.getPuntuación() != -1 && jugador.getPuntuación()> banca.getPuntuación()){
+                    System.out.println("El jugador "+jugador+" ha ganado.");
+                }
+            }
+        }
+
+
+
     }
 
 }

@@ -21,8 +21,6 @@ public enum Color {
         return color;
     }
 
-    //METODOS FUNCIONALES
-
 
 
 }
